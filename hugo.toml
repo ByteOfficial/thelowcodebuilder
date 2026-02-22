@@ -9,3 +9,54 @@ home = ["HTML"]
 section = ["HTML"]
 taxonomy = ["HTML"]
 term = ["HTML"]
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+[params]
+description = "Power Platform Tips Tutorials and Insights"
+author = "Your Name"
+ShowShareButtons = true
+ShowReadingTime = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+defaultTheme = "dark"
+
+[params.homeInfoParams]
+Title = "Welcome to The Low Code Builder"
+Content = "Your go-to resource for Microsoft Power Platform - Power Apps, Power Automate, Power BI and Power Pages"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://linkedin.com/in/yourprofile"
+
+[[menu.main]]
+name = "🟣 Power Apps"
+url = "/categories/power-apps/"
+weight = 1
+
+[[menu.main]]
+name = "🔵 Power Automate"
+url = "/categories/power-automate/"
+weight = 2
+
+[[menu.main]]
+name = "🟡 Power BI"
+url = "/categories/power-bi/"
+weight = 3
+
+[[menu.main]]
+name = "🟢 Power Pages"
+url = "/categories/power-pages/"
+weight = 4
+
+[[menu.main]]
+name = "🤖 Copilot Studio"
+url = "/categories/copilot-studio/"
+weight = 5
+
+[[menu.main]]
+name = "📖 About"
+url = "/about/"
+weight = 6
