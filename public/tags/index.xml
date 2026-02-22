@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Low Code Builder</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>The Low Code Builder</description>
+    <language>en-us</language>
+    
+    <item>
+      <title>Beginner</title>
+      <link>http://localhost:1313/tags/beginner/</link>
+      <pubDate>Wed, 21 Feb 2024 00:00:00 &#43;0000</pubDate>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Canvas-Apps</title>
+      <link>http://localhost:1313/tags/canvas-apps/</link>
+      <pubDate>Wed, 21 Feb 2024 00:00:00 &#43;0000</pubDate>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tutorial</title>
+      <link>http://localhost:1313/tags/tutorial/</link>
+      <pubDate>Wed, 21 Feb 2024 00:00:00 &#43;0000</pubDate>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
