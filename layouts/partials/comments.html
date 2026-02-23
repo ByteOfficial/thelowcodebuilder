@@ -1,38 +1,37 @@
-<div class="giscus-container">
-  <script src="https://giscus.app/client.js"
-          data-repo="ByteOfficial/thelowcodebuilder"
-          data-repo-id="XXXXXXXXXXXXX"
-          data-category="Announcements"
-          data-category-id="XXXXXXXXXXXXX"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="dark"
-          data-lang="en"
-          crossorigin="anonymous"
-          async>
-  </script>
-</div>
+<div class="giscus"></div>
 
 <script>
-  // Function to get current theme
-  function getCurrentTheme() {
-    // PaperMod stores theme preference in localStorage
-    const stored = localStorage.getItem("pref-theme");
-    if (stored) return stored === "dark" ? "dark" : "light";
-
-    // Fallback: check body class
-    if (document.body.classList.contains("dark")) return "dark";
-
-    // Fallback: check system preference
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-
+  // Detect current theme
+  function getTheme() {
+    if (document.body.classList.contains("dark")) {
+      return "dark";
+    }
     return "light";
   }
 
-  // Function to set giscus theme
+  // Load giscus with correct initial theme
+  function loadGiscus() {
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "ByteOfficial/thelowcodebuilder");
+    script.setAttribute("data-repo-id", "R_kgDORV1QAw");          // ← Your repo ID
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDORV1QA84C3E0m");      // ← Your category ID
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "bottom");
+    script.setAttribute("data-theme", getTheme());                 // ← Dynamic!
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+    document.querySelector(".giscus").appendChild(script);
+  }
+
+  loadGiscus();
+
+  // Update giscus theme when toggled
   function setGiscusTheme(theme) {
     const iframe = document.querySelector("iframe.giscus-frame");
     if (!iframe) return;
@@ -42,15 +41,20 @@
     );
   }
 
-  // Set initial theme once giscus loads
-  window.addEventListener("message", function (event) {
-    if (event.origin !== "https://giscus.app") return;
-    setGiscusTheme(getCurrentTheme());
-  });
+  // Hook into PaperMod's theme toggle button
+  const toggle = document.getElementById("theme-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      // Small delay to let PaperMod toggle the class first
+      setTimeout(function () {
+        setGiscusTheme(getTheme());
+      }, 50);
+    });
+  }
 
-  // Watch for theme changes (PaperMod toggles class on body)
+  // Also watch for body class changes (backup method)
   const observer = new MutationObserver(function () {
-    setGiscusTheme(getCurrentTheme());
+    setGiscusTheme(getTheme());
   });
 
   observer.observe(document.body, {
@@ -58,10 +62,10 @@
     attributeFilter: ["class"],
   });
 
-  // Also watch for localStorage changes (cross-tab support)
-  window.addEventListener("storage", function (e) {
-    if (e.key === "pref-theme") {
-      setGiscusTheme(e.newValue === "dark" ? "dark" : "light");
-    }
-  });
+  // Handle system theme changes
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", function (e) {
+      setGiscusTheme(e.matches ? "dark" : "light");
+    });
 </script>
