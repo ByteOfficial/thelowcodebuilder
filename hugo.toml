@@ -21,6 +21,7 @@ ShowShareButtons = true
 ShowReadingTime = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
+comments = true
 defaultTheme = "dark"
 
 [params.homeInfoParams]
