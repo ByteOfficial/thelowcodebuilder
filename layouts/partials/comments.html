@@ -1,71 +1,88 @@
 <div class="giscus"></div>
 
 <script>
-  // Detect current theme
   function getTheme() {
-    if (document.body.classList.contains("dark")) {
+    // Check localStorage first (PaperMod stores preference here)
+    const stored = localStorage.getItem("pref-theme");
+    if (stored) return stored;
+
+    // Fallback: check system preference
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
+
     return "light";
   }
 
+  function setGiscusTheme(theme) {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+
+    // Giscus theme names
+    const giscusTheme = theme === "dark" ? "dark" : "light";
+
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme } } },
+      "https://giscus.app"
+    );
+  }
+
   // Load giscus with correct initial theme
-  function loadGiscus() {
+  (function () {
     const script = document.createElement("script");
     script.src = "https://giscus.app/client.js";
     script.setAttribute("data-repo", "ByteOfficial/thelowcodebuilder");
-    script.setAttribute("data-repo-id", "R_kgDORV1QAw");          // ← Your repo ID
+    script.setAttribute("data-repo-id", "R_kgDORV1QAw");
     script.setAttribute("data-category", "Announcements");
-    script.setAttribute("data-category-id", "DIC_kwDORV1QA84C3E0l");      // ← Your category ID
+    script.setAttribute("data-category-id", "DIC_kwDORV1QA84C3E0l");
     script.setAttribute("data-mapping", "pathname");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "bottom");
-    script.setAttribute("data-theme", getTheme());                 // ← Dynamic!
+    script.setAttribute("data-theme", getTheme());
     script.setAttribute("data-lang", "en");
     script.setAttribute("crossorigin", "anonymous");
     script.async = true;
     document.querySelector(".giscus").appendChild(script);
-  }
+  })();
 
-  loadGiscus();
+  // Listen for localStorage changes (PaperMod updates this on toggle)
+  // Override localStorage.setItem to detect theme changes
+  const originalSetItem = localStorage.setItem;
+  localStorage.setItem = function (key, value) {
+    originalSetItem.apply(this, arguments);
+    if (key === "pref-theme") {
+      setGiscusTheme(value);
+    }
+  };
 
-  // Update giscus theme when toggled
-  function setGiscusTheme(theme) {
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
-    iframe.contentWindow.postMessage(
-      { giscus: { setConfig: { theme: theme } } },
-      "https://giscus.app"
-    );
-  }
+  // Hook into PaperMod's toggle button
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("theme-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        setTimeout(function () {
+          setGiscusTheme(getTheme());
+        }, 200);
+      });
+    }
+  });
 
-  // Hook into PaperMod's theme toggle button
-  const toggle = document.getElementById("theme-toggle");
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      // Small delay to let PaperMod toggle the class first
-      setTimeout(function () {
-        setGiscusTheme(getTheme());
-      }, 50);
-    });
-  }
-
-  // Also watch for body class changes (backup method)
+  // Watch for body/html attribute & class changes
   const observer = new MutationObserver(function () {
-    setGiscusTheme(getTheme());
+    setTimeout(function () {
+      setGiscusTheme(getTheme());
+    }, 200);
   });
 
   observer.observe(document.body, {
     attributes: true,
-    attributeFilter: ["class"],
+    attributeFilter: ["class", "data-theme"],
   });
 
-  // Handle system theme changes
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", function (e) {
-      setGiscusTheme(e.matches ? "dark" : "light");
-    });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class", "data-theme"],
+  });
 </script>
