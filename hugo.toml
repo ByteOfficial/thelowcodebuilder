@@ -16,7 +16,7 @@ tag = "tags"
 
 [params]
 description = "Power Platform Tips Tutorials and Insights"
-author = "Your Name"
+author = "Kunal Kumar"
 ShowShareButtons = true
 ShowReadingTime = true
 ShowPostNavLinks = true
@@ -30,7 +30,7 @@ Content = "Your go-to resource for Microsoft Power Platform - Power Apps, Power 
 
 [[params.socialIcons]]
 name = "linkedin"
-url = "https://linkedin.com/in/yourprofile"
+url = "https://linkedin.com/in/kunal0"
 
 [[menu.main]]
 name = "🟣 Power Apps"
