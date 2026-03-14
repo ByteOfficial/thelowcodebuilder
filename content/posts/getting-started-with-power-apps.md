@@ -16,11 +16,11 @@ anyone to build professional business applications without
 writing traditional code.
 
 It is part of the **Microsoft Power Platform** which includes:
-- 🟣 **Power Apps** - Build apps
-- 🔵 **Power Automate** - Automate workflows
-- 🟡 **Power BI** - Analyze data
-- 🟢 **Power Pages** - Build websites
-- 🤖 **Copilot Studio** - Build AI chatbots
+- {{< icon "power-apps" >}} **Power Apps** - Build apps
+- {{< icon "power-automate" >}} **Power Automate** - Automate workflows
+- {{< icon "power-bi" >}} **Power BI** - Analyze data
+- {{< icon "power-pages" >}} **Power Pages** - Build websites
+- {{< icon "copilot-studio" >}} **Copilot Studio** - Build AI chatbots
 
 ## Why Learn Power Apps?
 

@@ -23,37 +23,49 @@ ShowPostNavLinks = true
 ShowBreadCrumbs = true
 comments = true
 defaultTheme = "dark"
+hidePoweredBy = true
 
 [params.homeInfoParams]
 Title = "Welcome to The Low Code Builder"
 Content = "Your go-to resource for Microsoft Power Platform - Power Apps, Power Automate, Power BI and Power Pages"
+
+[params.assets]
+favicon = "/favicon.ico"
+favicon16x16 = "/favicon-16x16.png"
+favicon32x32 = "/favicon-32x32.png"
+apple_touch_icon = "/apple-touch-icon.png"
 
 [[params.socialIcons]]
 name = "linkedin"
 url = "https://linkedin.com/in/kunal0"
 
 [[menu.main]]
-name = "🟣 Power Apps"
+identifier = "power-apps"
+name = "Power Apps"
 url = "/categories/power-apps/"
 weight = 1
 
 [[menu.main]]
-name = "🔵 Power Automate"
+identifier = "power-automate"
+name = "Power Automate"
 url = "/categories/power-automate/"
 weight = 2
 
 [[menu.main]]
-name = "🟡 Power BI"
+identifier = "power-bi"
+name = "Power BI"
 url = "/categories/power-bi/"
 weight = 3
 
 [[menu.main]]
-name = "🟢 Power Pages"
+identifier = "power-pages"
+name = "Power Pages"
 url = "/categories/power-pages/"
 weight = 4
 
 [[menu.main]]
-name = "🤖 Copilot Studio"
+identifier = "copilot-studio"
+name = "Copilot Studio"
 url = "/categories/copilot-studio/"
 weight = 5
 
