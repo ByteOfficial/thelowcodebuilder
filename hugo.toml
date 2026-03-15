@@ -24,6 +24,7 @@ ShowBreadCrumbs = true
 comments = true
 defaultTheme = "dark"
 hidePoweredBy = true
+keywords = ["Power Apps", "Power Automate", "Power BI", "Power Pages", "Microsoft Power Platform", "Low Code"]
 
 [params.homeInfoParams]
 Title = "Welcome to The Low Code Builder"
@@ -73,3 +74,7 @@ weight = 5
 name = "📖 About"
 url = "/about/"
 weight = 6
+
+[params.meta]
+  title = "The Low Code Builder - Power Platform Tutorials"
+  description = "Learn Microsoft Power Platform - Power Apps, Power Automate, Power BI tutorials and tips"

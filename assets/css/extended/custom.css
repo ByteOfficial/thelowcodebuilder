@@ -89,3 +89,354 @@
   background-repeat: no-repeat;
   vertical-align: middle;
 }
+
+
+/* ==========================================
+   ABOUT PAGE STYLES - Brittany Chiang Inspired
+   ========================================== */
+
+/* Container */
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+/* Main Content Grid */
+.about-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+    align-items: start;
+    margin-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* Greeting & Tagline */
+.about-greeting {
+    font-size: clamp(40px, 8vw, 60px);
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    line-height: 1.1;
+}
+
+.highlight {
+    color: #9ca3af; /* Grey highlight */
+}
+
+.about-tagline {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 600;
+    color: #6b7280;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+}
+
+/* Description */
+.about-description {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+/* Skills Section */
+.about-skills {
+    margin-top: 40px;
+}
+
+.about-skills h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 200px));
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.skills-list li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.skills-list li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #6b7280;
+}
+
+/* Profile Image - Alternative Fix */
+.about-image {
+    position: relative;
+    padding: 30px;
+}
+
+.image-wrapper {
+    position: relative;
+    max-width: 300px;
+    display: block;
+    background: transparent;
+}
+
+.image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    filter: grayscale(20%);
+    transition: all 0.25s ease;
+    box-shadow: 15px 15px 0px 0px #6b7280;
+}
+
+.image-wrapper:hover img {
+    filter: grayscale(0%);
+    box-shadow: 10px 10px 0px 0px #9ca3af;
+}
+/* CTA Buttons */
+.about-cta {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: transparent;
+    border: 1px solid #6b7280;
+    border-radius: 4px;
+    color: #9ca3af;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: #d1d5db;
+}
+
+.cta-button-outline {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: transparent;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    color: #6b7280;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.cta-button-outline:hover {
+    border-color: #6b7280;
+    color: #9ca3af;
+    background-color: rgba(107, 114, 128, 0.05);
+}
+
+/* Section Titles */
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 200px;
+    height: 1px;
+    margin-left: 20px;
+    background-color: #374151;
+}
+
+/* Experience Section */
+.experience-section {
+    margin-bottom: 100px;
+}
+
+.experience-item {
+    margin-bottom: 40px;
+    padding: 25px;
+    border-radius: 8px;
+    background-color: rgba(55, 65, 81, 0.1);
+    transition: all 0.25s ease;
+}
+
+.experience-item:hover {
+    background-color: rgba(55, 65, 81, 0.2);
+    transform: translateX(5px);
+}
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.experience-header h3 {
+    font-size: 20px;
+    margin: 0;
+    color: var(--primary);
+}
+
+.experience-date {
+    font-size: 14px;
+    color: #6b7280;
+    font-family: monospace;
+}
+
+.experience-company {
+    font-size: 16px;
+    color: #9ca3af;
+    margin: 5px 0 15px 0;
+}
+
+.experience-description {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.experience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    padding: 5px 12px;
+    background-color: rgba(107, 114, 128, 0.2);
+    border-radius: 20px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* Projects Section */
+.projects-section {
+    margin-bottom: 100px;
+}
+
+.project-card {
+    background-color: rgba(55, 65, 81, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.25s ease;
+}
+
+.project-card:hover {
+    background-color: rgba(55, 65, 81, 0.2);
+    transform: translateY(-5px);
+}
+
+.project-overline {
+    font-size: 13px;
+    font-family: monospace;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.project-title {
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    color: var(--primary);
+}
+
+.project-title:hover {
+    color: #9ca3af;
+}
+
+.project-description {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.project-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+    margin: 0 0 20px 0;
+    list-style: none;
+}
+
+.project-tech-list li {
+    font-size: 13px;
+    font-family: monospace;
+    color: #9ca3af;
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+}
+
+.project-links a {
+    color: #6b7280;
+    transition: color 0.25s ease;
+}
+
+.project-links a:hover {
+    color: #9ca3af;
+}
+
+/* Contact Section */
+.contact-section {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.contact-description {
+    font-size: 18px;
+    color: #6b7280;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .about-container {
+        padding: 30px 15px;
+    }
+
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-title::after {
+        width: 100px;
+    }
+}
