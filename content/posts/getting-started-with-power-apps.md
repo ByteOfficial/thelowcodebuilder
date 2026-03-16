@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with Power Apps: A Complete Beginner's Guide"
-date: 2024-02-21
+date: 2026-02-21
 draft: false
 categories: ["Power Apps"]
 tags: ["beginner", "canvas-apps", "tutorial"]

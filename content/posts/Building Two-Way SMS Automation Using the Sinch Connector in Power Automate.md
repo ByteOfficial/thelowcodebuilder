@@ -244,7 +244,7 @@ For example, if status is `failed`, notify a support channel:
 3. **Sends automated reply**
 4. **Delivery receipt updates ticket status** (delivered/failed)
 
-![Example timeline: inbound message → ticket created → reply sent → delivery confirmed](images/14-example-timeline.png)
+<!-- ![Example timeline: inbound message → ticket created → reply sent → delivery confirmed](images/14-example-timeline.png) -->
 
 ---
 
@@ -255,12 +255,10 @@ For example, if status is `failed`, notify a support channel:
 - **Normalize phone numbers:** Store `From` in E.164 format if possible to avoid mismatches.
 - **Rate limits and retries:** If your CRM throttles, add retry policy and/or queue updates in Dataverse.
 
-![Best practices checklist for correlation, dedupe, normalization](images/15-best-practices.png)
+<!-- ![Best practices checklist for correlation, dedupe, normalization](images/15-best-practices.png) -->
 
 ---
 
 # Conclusion
 
 With the **Receive SMS** trigger, **When receiving a delivery receipt** trigger, and **Get message status** action, you can build a robust two-way SMS support channel in Power Automate—fully automated, trackable, and easy to extend.
-
-If you tell me which CRM you’re using (Dynamics, Zendesk, Salesforce, HubSpot, ServiceNow, etc.), I can tailor the exact connector steps and field mappings, and provide a ready-to-import flow outline.
