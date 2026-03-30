@@ -78,3 +78,7 @@ weight = 6
 [params.meta]
   title = "The Low Code Builder - Power Platform Tutorials"
   description = "Learn Microsoft Power Platform - Power Apps, Power Automate, Power BI tutorials and tips"
+
+  [services]
+  [services.googleAnalytics]
+    ID = "G-2D0R3FWKBN"
