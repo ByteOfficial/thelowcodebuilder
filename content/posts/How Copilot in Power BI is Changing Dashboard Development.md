@@ -1,12 +1,19 @@
 ---
 title: "How Copilot in Power BI is Changing Dashboard Development"
 date: 2026-03-17
+lastmod: 2026-03-17
 draft: false
+slug: "copilot-power-bi-dashboard-development"
 categories: ["Power BI","Copilot Studio"]
 tags: ["Power BI", "Microsoft Copilot", "Data Analytics", "Business Intelligence", "AI Tools", "Dashboard Development"]
-description: "How Copilot in Power BI is Changing Dashboard Development and what it still can't do on its own"
+description: "Explore how Copilot in Power BI is transforming dashboard development — real examples, limitations, and what it still can't do on its own."
 ShowToc: true
 TocOpen: true
+cover:
+  image: "/images/copilot-power-bi-cover.png"
+  alt: "Copilot in Power BI Dashboard Development"
+  caption: "How AI is changing the way we build Power BI dashboards"
+  relative: false
 ---
 
 ## Introduction

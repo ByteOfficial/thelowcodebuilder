@@ -3,18 +3,20 @@ languageCode = "en-us"
 title = "The Low Code Builder"
 theme = "PaperMod"
 paginate = 10
+enableGitInfo = true
 
 [outputs]
-home = ["HTML"]
-section = ["HTML"]
-taxonomy = ["HTML"]
-term = ["HTML"]
+home = ["HTML", "RSS", "JSON"]
+section = ["HTML", "RSS"]
+taxonomy = ["HTML", "RSS"]
+term = ["HTML", "RSS"]
 
 [taxonomies]
 category = "categories"
 tag = "tags"
 
 [params]
+env = "production"
 description = "Power Platform Tips Tutorials and Insights"
 author = "Kunal Kumar"
 ShowShareButtons = true
@@ -71,14 +73,16 @@ url = "/categories/copilot-studio/"
 weight = 5
 
 [[menu.main]]
-name = "📖 About"
-url = "/about/"
+identifier = "search"
+name = "🔍 Search"
+url = "/search/"
 weight = 6
 
-[params.meta]
-  title = "The Low Code Builder - Power Platform Tutorials"
-  description = "Learn Microsoft Power Platform - Power Apps, Power Automate, Power BI tutorials and tips"
+[[menu.main]]
+name = "📖 About"
+url = "/about/"
+weight = 7
 
-  [services]
-  [services.googleAnalytics]
-    ID = "G-2D0R3FWKBN"
+[services]
+[services.googleAnalytics]
+  ID = "G-2D0R3FWKBN"

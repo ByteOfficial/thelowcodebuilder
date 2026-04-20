@@ -1,12 +1,19 @@
 ---
 title: "Building Two-Way SMS Automation Using the Sinch Connector in Power Automate"
 date: 2026-03-16
+lastmod: 2026-03-16
 draft: false
+slug: "two-way-sms-automation-sinch-power-automate"
 categories: ["Power Automate"]
 tags: ["Power Automate", "Sinch", "SMS", "Automation", "CRM", "tutorial", "advanced"]
 description: "Create a two-way SMS experience: receive inbound texts, create CRM tickets, auto-reply, and track delivery receipts with message status."
 ShowToc: true
 TocOpen: true
+cover:
+  image: "/images/sms-automation-sinch-cover.png"
+  alt: "Two-Way SMS Automation with Sinch and Power Automate"
+  caption: "Build a complete two-way SMS automation pipeline"
+  relative: false
 ---
 
 # Building Two-Way SMS Automation Using the Sinch Connector in Power Automate

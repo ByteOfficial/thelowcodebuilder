@@ -1,12 +1,19 @@
 ---
 title: "Getting Started with Power Apps: A Complete Beginner's Guide"
 date: 2026-02-21
+lastmod: 2026-02-21
 draft: false
+slug: "getting-started-with-power-apps"
 categories: ["Power Apps"]
 tags: ["beginner", "canvas-apps", "tutorial"]
-description: "Learn how to build your first Power App from scratch"
+description: "Learn how to build your first Power App from scratch. Step-by-step beginner tutorial covering canvas apps, formulas, and deployment."
 ShowToc: true
 TocOpen: true
+cover:
+  image: "/images/getting-started-power-apps-cover.png"
+  alt: "Getting Started with Power Apps"
+  caption: "A complete beginner's guide to Microsoft Power Apps"
+  relative: false
 ---
 
 ## What is Power Apps?
