@@ -76,7 +76,7 @@ weight = 5
 identifier = "search"
 name = "🔍 Search"
 url = "/search/"
-weight = 6
+weight = 8
 
 [[menu.main]]
 name = "📖 About"

@@ -83,3 +83,14 @@
         </ul>
     </nav>
 </header>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchLink = document.querySelector('#menu a[href*="/search/"]');
+    if (searchLink) {
+        searchLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openGlobalSearch) window.openGlobalSearch();
+        });
+    }
+});
+</script>
