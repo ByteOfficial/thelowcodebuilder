@@ -1,88 +1,119 @@
-<div class="giscus"></div>
+{{- /* Cusdis Comments — lightweight, no-login-required commenting */ -}}
+
+<div class="comments-section">
+  <h2 class="comments-heading">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    Comments
+  </h2>
+  <p class="comments-subtext">No sign-in required — just leave your name and comment!</p>
+
+  <div id="cusdis_thread"
+    data-host="https://cusdis.com"
+    data-app-id="a8596ce5-38a0-4435-abcd-7244feba04d8"
+    data-page-id="{{ .File.UniqueID }}"
+    data-page-url="{{ .Permalink }}"
+    data-page-title="{{ .Title }}"
+  ></div>
+</div>
+
+{{- /* Set correct theme BEFORE Cusdis loads, by reading localStorage like PaperMod does */ -}}
+<script>
+(function() {
+  var theme = localStorage.getItem("pref-theme");
+  if (!theme) {
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.getElementById("cusdis_thread").setAttribute("data-theme", theme);
+})();
+</script>
+
+{{- /* Load Cusdis — must come AFTER the theme is set above */ -}}
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+<style>
+  /* Cusdis iframe — no scrollbar, auto-height */
+  #cusdis_thread iframe {
+    width: 100% !important;
+    border: none !important;
+    min-height: 280px;
+  }
+  /* Hide "Comments powered by Cusdis" link */
+  #cusdis_thread > a {
+    display: none !important;
+  }
+</style>
 
 <script>
-  function getTheme() {
-    // Check localStorage first (PaperMod stores preference here)
-    const stored = localStorage.getItem("pref-theme");
+  // Watch for Cusdis SDK to create the iframe, then fix scrollbar
+  (function() {
+    var container = document.getElementById("cusdis_thread");
+    if (!container) return;
+
+    var observer = new MutationObserver(function() {
+      var iframe = container.querySelector("iframe");
+      if (iframe) {
+        iframe.setAttribute("scrolling", "no");
+        iframe.style.overflow = "hidden";
+        iframe.style.border = "none";
+        observer.disconnect();
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+
+    // Listen for height messages from the Cusdis iframe to auto-resize
+    window.addEventListener("message", function(e) {
+      try {
+        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+        if (data && data.from === "cusdis") {
+          var iframe = container.querySelector("iframe");
+          if (iframe && data.event === "resize") {
+            iframe.style.height = data.data + "px";
+          }
+        }
+      } catch (_) {}
+    });
+  })();
+</script>
+
+<script>
+  // ── Theme sync with PaperMod toggle ──
+  function getCusdisTheme() {
+    var stored = localStorage.getItem("pref-theme");
     if (stored) return stored;
-
-    // Fallback: check system preference
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
-  function setGiscusTheme(theme) {
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
-
-    // Giscus theme names
-    const giscusTheme = theme === "dark" ? "dark" : "light";
-
-    iframe.contentWindow.postMessage(
-      { giscus: { setConfig: { theme: giscusTheme } } },
-      "https://giscus.app"
-    );
-  }
-
-  // Load giscus with correct initial theme
+  // Hook into PaperMod's localStorage write to catch theme changes
   (function () {
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.setAttribute("data-repo", "ByteOfficial/thelowcodebuilder");
-    script.setAttribute("data-repo-id", "R_kgDORV1QAw");
-    script.setAttribute("data-category", "Announcements");
-    script.setAttribute("data-category-id", "DIC_kwDORV1QA84C3E0l");
-    script.setAttribute("data-mapping", "pathname");
-    script.setAttribute("data-strict", "0");
-    script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "bottom");
-    script.setAttribute("data-theme", getTheme());
-    script.setAttribute("data-lang", "en");
-    script.setAttribute("crossorigin", "anonymous");
-    script.async = true;
-    document.querySelector(".giscus").appendChild(script);
+    var origSetItem = localStorage.setItem;
+    localStorage.setItem = function (key, value) {
+      origSetItem.apply(this, arguments);
+      if (key === "pref-theme") {
+        var thread = document.getElementById("cusdis_thread");
+        if (thread) thread.setAttribute("data-theme", value);
+        if (window.CUSDIS) {
+          window.CUSDIS.setTheme(value);
+        }
+      }
+    };
   })();
 
-  // Listen for localStorage changes (PaperMod updates this on toggle)
-  // Override localStorage.setItem to detect theme changes
-  const originalSetItem = localStorage.setItem;
-  localStorage.setItem = function (key, value) {
-    originalSetItem.apply(this, arguments);
-    if (key === "pref-theme") {
-      setGiscusTheme(value);
-    }
-  };
-
-  // Hook into PaperMod's toggle button
+  // Also hook the toggle button as a backup
   document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("theme-toggle");
+    var toggle = document.getElementById("theme-toggle");
     if (toggle) {
       toggle.addEventListener("click", function () {
         setTimeout(function () {
-          setGiscusTheme(getTheme());
-        }, 200);
+          var theme = getCusdisTheme();
+          var thread = document.getElementById("cusdis_thread");
+          if (thread) thread.setAttribute("data-theme", theme);
+          if (window.CUSDIS) {
+            window.CUSDIS.setTheme(theme);
+          }
+        }, 250);
       });
     }
-  });
-
-  // Watch for body/html attribute & class changes
-  const observer = new MutationObserver(function () {
-    setTimeout(function () {
-      setGiscusTheme(getTheme());
-    }, 200);
-  });
-
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ["class", "data-theme"],
-  });
-
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class", "data-theme"],
   });
 </script>

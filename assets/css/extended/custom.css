@@ -141,7 +141,7 @@
     line-height: 1.1;
 }
 
-.highlight {
+.about-container .highlight {
     background: linear-gradient(135deg, #60a5fa, #a78bfa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -702,7 +702,7 @@
    ========================================== */
 
 /* Name gradient — deeper indigo for readability */
-[data-theme="light"] .highlight {
+[data-theme="light"] .about-container .highlight {
     background: linear-gradient(135deg, #2563eb, #7c3aed);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -944,7 +944,7 @@
 /* Widget container - positioned bottom-right */
 .donate-widget {
     position: fixed;
-    bottom: 28px;
+    bottom: 120px;
     right: 28px;
     z-index: 9999;
     display: flex;
@@ -1663,4 +1663,164 @@
         gap: 10px;
         font-size: 11px;
     }
+}
+
+/* ==========================================
+   CUSDIS COMMENTS SECTION
+   ========================================== */
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(75, 85, 99, 0.2);
+}
+
+.comments-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: var(--primary);
+}
+
+.comments-heading svg {
+    color: #818cf8;
+    flex-shrink: 0;
+}
+
+.comments-subtext {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 28px 0;
+    font-style: italic;
+}
+
+/* Cusdis iframe container */
+#cusdis_thread {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Light theme overrides */
+[data-theme="light"] .comments-heading svg {
+    color: #4338ca;
+}
+
+[data-theme="light"] .comments-subtext {
+    color: #6b7280;
+}
+
+[data-theme="light"] .comments-section {
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   CODE BLOCK COLOR FIXES
+   ========================================== */
+
+/* Dark theme: light text on dark bg (default behavior) */
+:root[data-theme="dark"] .post-content pre code,
+:root[data-theme="dark"] .highlight pre code {
+    color: #cad3f5 !important;
+}
+
+/* Light theme: dark text on light grey bg */
+:root:not([data-theme="dark"]) .post-content pre code,
+:root:not([data-theme="dark"]) .highlight pre code,
+[data-theme="light"] .post-content pre code,
+[data-theme="light"] .highlight pre code {
+    color: #1f2937 !important;
+    background: #f3f4f6 !important;
+}
+
+/* Light theme: override the inline bg on <pre> too */
+:root:not([data-theme="dark"]) .post-content .highlight pre,
+:root:not([data-theme="dark"]) .post-content pre:has(> code),
+[data-theme="light"] .post-content .highlight pre,
+[data-theme="light"] .post-content pre:has(> code) {
+    background: #f3f4f6 !important;
+    color: #1f2937 !important;
+}
+
+/* Light theme: highlight wrapper bg */
+:root:not([data-theme="dark"]) .post-content .highlight:not(table),
+[data-theme="light"] .post-content .highlight:not(table) {
+    background: #f3f4f6 !important;
+    border: 1px solid #e5e7eb;
+}
+
+/* Light theme: chroma syntax colors — darker variants for readability */
+[data-theme="light"] .chroma { color: #1f2937 !important; background-color: #f3f4f6 !important; }
+[data-theme="light"] .chroma .k  { color: #7c3aed; }  /* keywords — purple */
+[data-theme="light"] .chroma .kc { color: #c2410c; }  /* keyword constant — orange */
+[data-theme="light"] .chroma .kd { color: #dc2626; }  /* keyword declaration — red */
+[data-theme="light"] .chroma .kn { color: #0d9488; }  /* keyword namespace — teal */
+[data-theme="light"] .chroma .s  { color: #16a34a; }  /* strings — green */
+[data-theme="light"] .chroma .sa { color: #dc2626; }  /* string affix */
+[data-theme="light"] .chroma .sb { color: #16a34a; }  /* string backtick */
+[data-theme="light"] .chroma .sc { color: #16a34a; }  /* string char */
+[data-theme="light"] .chroma .nf { color: #2563eb; }  /* function name — blue */
+[data-theme="light"] .chroma .na { color: #2563eb; }  /* attribute — blue */
+[data-theme="light"] .chroma .nc { color: #b45309; }  /* class name — amber */
+[data-theme="light"] .chroma .no { color: #b45309; }  /* constant */
+[data-theme="light"] .chroma .nn { color: #c2410c; }  /* namespace */
+[data-theme="light"] .chroma .c,
+[data-theme="light"] .chroma .cm,
+[data-theme="light"] .chroma .c1 { color: #6b7280; }  /* comments — grey */
+[data-theme="light"] .chroma .err { color: #dc2626; }  /* errors */
+[data-theme="light"] .chroma .lnt,
+[data-theme="light"] .chroma .ln { color: #9ca3af; }  /* line numbers */
+
+/* Light theme: inline code (not in pre) */
+[data-theme="light"] .post-content code:not(pre code) {
+    color: #1f2937;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================
+   COPY CODE BUTTON — Premium Styling
+   ========================================== */
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 2;
+    letter-spacing: 0.3px;
+}
+
+.copy-code:hover {
+    color: #fff;
+    background: rgba(99, 102, 241, 0.5);
+    border-color: rgba(99, 102, 241, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Light theme: copy button adapted for light bg */
+[data-theme="light"] .copy-code {
+    color: #6b7280;
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .copy-code:hover {
+    color: #fff;
+    background: rgba(99, 102, 241, 0.7);
+    border-color: rgba(99, 102, 241, 0.8);
+}
+
+div.highlight:hover .copy-code,
+pre:hover .copy-code {
+    display: block;
 }
