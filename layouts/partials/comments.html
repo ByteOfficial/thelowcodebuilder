@@ -12,13 +12,13 @@
   <div id="cusdis_thread"
     data-host="https://cusdis.com"
     data-app-id="a8596ce5-38a0-4435-abcd-7244feba04d8"
-    data-page-id="{{ .File.UniqueID }}"
+    data-page-id="{{ .RelPermalink }}"
     data-page-url="{{ .Permalink }}"
     data-page-title="{{ .Title }}"
   ></div>
 </div>
 
-{{- /* Set correct theme BEFORE Cusdis loads, by reading localStorage like PaperMod does */ -}}
+{{- /* Set correct theme BEFORE Cusdis loads */ -}}
 <script>
 (function() {
   var theme = localStorage.getItem("pref-theme");
@@ -29,8 +29,8 @@
 })();
 </script>
 
-{{- /* Load Cusdis — must come AFTER the theme is set above */ -}}
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+{{- /* Load Cusdis SDK (standard version, not ES module) */ -}}
+<script defer src="https://cusdis.com/js/cusdis.js"></script>
 
 <style>
   /* Cusdis iframe — no scrollbar, auto-height */
