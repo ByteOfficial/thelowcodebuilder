@@ -33,7 +33,6 @@
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <style>
-  /* Let the Cusdis iframe size itself naturally */
   #cusdis_thread iframe {
     width: 100% !important;
     border: none !important;
@@ -43,6 +42,48 @@
     display: none !important;
   }
 </style>
+
+<script>
+  // Remove scrollbar from Cusdis iframe and auto-resize to fit content
+  (function() {
+    var container = document.getElementById("cusdis_thread");
+    if (!container) return;
+
+    function setupIframe(iframe) {
+      // Remove scrollbar
+      iframe.setAttribute("scrolling", "no");
+      iframe.style.border = "none";
+
+      // Auto-resize: poll the iframe for size changes via Cusdis postMessage
+      // Also set a generous initial height so comments aren't cut off
+      iframe.style.minHeight = "500px";
+    }
+
+    // Watch for Cusdis to inject the iframe
+    var observer = new MutationObserver(function(mutations) {
+      var iframe = container.querySelector("iframe");
+      if (iframe) {
+        setupIframe(iframe);
+        observer.disconnect();
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+
+    // Listen for Cusdis resize messages to auto-adjust height
+    window.addEventListener("message", function(e) {
+      try {
+        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+        if (data && data.from === "cusdis" && data.event === "resize") {
+          var iframe = container.querySelector("iframe");
+          if (iframe) {
+            // Add some padding to avoid clipping
+            iframe.style.height = (parseInt(data.data, 10) + 20) + "px";
+          }
+        }
+      } catch (_) {}
+    });
+  })();
+</script>
 
 <script>
   // ── Theme sync with PaperMod toggle ──
