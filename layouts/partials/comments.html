@@ -33,49 +33,16 @@
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <style>
-  /* Cusdis iframe — no scrollbar, auto-height */
+  /* Let the Cusdis iframe size itself naturally */
   #cusdis_thread iframe {
     width: 100% !important;
     border: none !important;
-    min-height: 280px;
   }
   /* Hide "Comments powered by Cusdis" link */
   #cusdis_thread > a {
     display: none !important;
   }
 </style>
-
-<script>
-  // Watch for Cusdis SDK to create the iframe, then fix scrollbar
-  (function() {
-    var container = document.getElementById("cusdis_thread");
-    if (!container) return;
-
-    var observer = new MutationObserver(function() {
-      var iframe = container.querySelector("iframe");
-      if (iframe) {
-        iframe.setAttribute("scrolling", "no");
-        iframe.style.overflow = "hidden";
-        iframe.style.border = "none";
-        observer.disconnect();
-      }
-    });
-    observer.observe(container, { childList: true, subtree: true });
-
-    // Listen for height messages from the Cusdis iframe to auto-resize
-    window.addEventListener("message", function(e) {
-      try {
-        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-        if (data && data.from === "cusdis") {
-          var iframe = container.querySelector("iframe");
-          if (iframe && data.event === "resize") {
-            iframe.style.height = data.data + "px";
-          }
-        }
-      } catch (_) {}
-    });
-  })();
-</script>
 
 <script>
   // ── Theme sync with PaperMod toggle ──
