@@ -1,0 +1,94 @@
+baseURL = "https://thelowcodebuilder.com/"
+languageCode = "en-us"
+title = "The Low Code Builder"
+theme = "PaperMod"
+paginate = 10
+enableGitInfo = true
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+section = ["HTML", "RSS"]
+taxonomy = ["HTML", "RSS"]
+term = ["HTML", "RSS"]
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+[params]
+env = "production"
+description = "Power Platform Tips Tutorials and Insights"
+author = "Kunal Kumar"
+ShowShareButtons = true
+ShowReadingTime = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+comments = true
+ShowCodeCopyButtons = true
+defaultTheme = "dark"
+hidePoweredBy = true
+keywords = ["Power Apps", "Power Automate", "Power BI", "Power Pages", "Microsoft Power Platform", "Low Code"]
+
+[params.homeInfoParams]
+Title = "Welcome to The Low Code Builder"
+Content = "Your go-to resource for Microsoft Power Platform - Power Apps, Power Automate, Power BI and Power Pages"
+
+[params.assets]
+favicon = "/favicon.ico"
+favicon16x16 = "/favicon-16x16.png"
+favicon32x32 = "/favicon-32x32.png"
+apple_touch_icon = "/apple-touch-icon.png"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://linkedin.com/in/kunal0"
+
+[[menu.main]]
+identifier = "power-apps"
+name = "Power Apps"
+url = "/categories/power-apps/"
+weight = 1
+
+[[menu.main]]
+identifier = "power-automate"
+name = "Power Automate"
+url = "/categories/power-automate/"
+weight = 2
+
+[[menu.main]]
+identifier = "power-bi"
+name = "Power BI"
+url = "/categories/power-bi/"
+weight = 3
+
+[[menu.main]]
+identifier = "power-pages"
+name = "Power Pages"
+url = "/categories/power-pages/"
+weight = 4
+
+[[menu.main]]
+identifier = "copilot-studio"
+name = "Copilot Studio"
+url = "/categories/copilot-studio/"
+weight = 5
+
+[[menu.main]]
+identifier = "search"
+name = "🔍 Search"
+url = "/search/"
+weight = 8
+
+[[menu.main]]
+name = "📖 About"
+url = "/about/"
+weight = 7
+
+[services]
+[services.googleAnalytics]
+  ID = "G-2D0R3FWKBN"
+
+  [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
