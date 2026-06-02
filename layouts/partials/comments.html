@@ -1,5 +1,11 @@
 {{- /* Cusdis Comments — lightweight, no-login-required commenting */ -}}
 
+{{- /* Determine theme for Cusdis */ -}}
+{{- $cusdisTheme := "dark" -}}
+{{- if eq site.Params.defaultTheme "light" -}}
+  {{- $cusdisTheme = "light" -}}
+{{- end -}}
+
 <div class="comments-section">
   <h2 class="comments-heading">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -15,27 +21,15 @@
     data-page-id="{{ .RelPermalink }}"
     data-page-url="{{ .Permalink }}"
     data-page-title="{{ .Title }}"
+    data-theme="{{ $cusdisTheme }}"
   ></div>
 </div>
-
-{{- /* Set correct theme BEFORE Cusdis loads */ -}}
-<script>
-(function() {
-  var theme = localStorage.getItem("pref-theme");
-  if (!theme) {
-    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  }
-  document.getElementById("cusdis_thread").setAttribute("data-theme", theme);
-})();
-</script>
-
-{{- /* Load Cusdis SDK */ -}}
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <style>
   #cusdis_thread iframe {
     width: 100% !important;
     border: none !important;
+    min-height: 300px;
   }
   /* Hide "Comments powered by Cusdis" link */
   #cusdis_thread > a {
@@ -43,85 +37,97 @@
   }
 </style>
 
+{{- /* Load Cusdis SDK — defer only (no async) ensures DOM is ready */ -}}
+<script defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+{{- /* Fallback: manually initialize if auto-init didn't fire */ -}}
 <script>
-  // Remove scrollbar from Cusdis iframe and auto-resize to fit content
-  (function() {
-    var container = document.getElementById("cusdis_thread");
-    if (!container) return;
-
-    function setupIframe(iframe) {
-      // Remove scrollbar
-      iframe.setAttribute("scrolling", "no");
-      iframe.style.border = "none";
-
-      // Auto-resize: poll the iframe for size changes via Cusdis postMessage
-      // Also set a generous initial height so comments aren't cut off
-      iframe.style.minHeight = "500px";
-    }
-
-    // Watch for Cusdis to inject the iframe
-    var observer = new MutationObserver(function(mutations) {
-      var iframe = container.querySelector("iframe");
-      if (iframe) {
-        setupIframe(iframe);
-        observer.disconnect();
-      }
-    });
-    observer.observe(container, { childList: true, subtree: true });
-
-    // Listen for Cusdis resize messages to auto-adjust height
-    window.addEventListener("message", function(e) {
-      try {
-        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-        if (data && data.from === "cusdis" && data.event === "resize") {
-          var iframe = container.querySelector("iframe");
-          if (iframe) {
-            // Add some padding to avoid clipping
-            iframe.style.height = (parseInt(data.data, 10) + 20) + "px";
-          }
-        }
-      } catch (_) {}
-    });
-  })();
-</script>
-
-<script>
-  // ── Theme sync with PaperMod toggle ──
-  function getCusdisTheme() {
+(function() {
+  // Set correct theme from localStorage before Cusdis renders
+  function getTheme() {
     var stored = localStorage.getItem("pref-theme");
     if (stored) return stored;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    return "light";
   }
 
-  // Hook into PaperMod's localStorage write to catch theme changes
-  (function () {
-    var origSetItem = localStorage.setItem;
-    localStorage.setItem = function (key, value) {
-      origSetItem.apply(this, arguments);
-      if (key === "pref-theme") {
-        var thread = document.getElementById("cusdis_thread");
-        if (thread) thread.setAttribute("data-theme", value);
-        if (window.CUSDIS) {
-          window.CUSDIS.setTheme(value);
+  // Apply theme to the container immediately
+  var thread = document.getElementById("cusdis_thread");
+  if (thread) {
+    thread.setAttribute("data-theme", getTheme());
+  }
+
+  // Fallback initialization — if Cusdis SDK loaded but didn't auto-init
+  function tryInit() {
+    var target = document.getElementById("cusdis_thread");
+    if (!target) return;
+
+    // If Cusdis already created an iframe, it worked — skip
+    if (target.querySelector("iframe")) return;
+
+    // If CUSDIS global exists, manually trigger initialization
+    if (window.CUSDIS && window.CUSDIS.initial) {
+      window.CUSDIS.initial();
+    } else if (window.renderCusdis) {
+      window.renderCusdis(target);
+    }
+  }
+
+  // Try init on DOMContentLoaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(tryInit, 500);
+    });
+  } else {
+    // DOM already loaded
+    setTimeout(tryInit, 500);
+  }
+
+  // Also try after a longer delay as a last resort
+  setTimeout(tryInit, 2000);
+
+  // Handle iframe resize messages from Cusdis
+  window.addEventListener("message", function(e) {
+    try {
+      var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+      if (data && data.from === "cusdis" && data.event === "resize") {
+        var iframe = document.querySelector("#cusdis_thread iframe");
+        if (iframe) {
+          iframe.style.height = (parseInt(data.data, 10) + 20) + "px";
         }
       }
-    };
-  })();
+    } catch (_) {}
+  });
+
+  // ── Theme sync with PaperMod toggle ──
+  // Hook into PaperMod's localStorage write to catch theme changes
+  var origSetItem = localStorage.setItem;
+  localStorage.setItem = function(key, value) {
+    origSetItem.apply(this, arguments);
+    if (key === "pref-theme") {
+      var t = document.getElementById("cusdis_thread");
+      if (t) t.setAttribute("data-theme", value);
+      if (window.CUSDIS && window.CUSDIS.setTheme) {
+        window.CUSDIS.setTheme(value);
+      }
+    }
+  };
 
   // Also hook the toggle button as a backup
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function() {
     var toggle = document.getElementById("theme-toggle");
     if (toggle) {
-      toggle.addEventListener("click", function () {
-        setTimeout(function () {
-          var theme = getCusdisTheme();
-          var thread = document.getElementById("cusdis_thread");
-          if (thread) thread.setAttribute("data-theme", theme);
-          if (window.CUSDIS) {
+      toggle.addEventListener("click", function() {
+        setTimeout(function() {
+          var theme = getTheme();
+          var t = document.getElementById("cusdis_thread");
+          if (t) t.setAttribute("data-theme", theme);
+          if (window.CUSDIS && window.CUSDIS.setTheme) {
             window.CUSDIS.setTheme(theme);
           }
         }, 250);
       });
     }
   });
+})();
 </script>
