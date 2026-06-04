@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "How Microsoft Copilot Studio and MCP Transform AI Integration"
+slug: "how-microsoft-copilot-studio-and-mcp-transform-ai-integration"
 date: 2026-05-29 06:11:34 +0000
 description: "Microsoft Copilot Studio and MCP streamline AI agent integration with secure, reusable connectors—boosting productivity and reducing costs for enterprise makers."
 categories:
