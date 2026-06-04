@@ -5,6 +5,7 @@ cover:
 layout: post
 title: "Build Power Pages Sites with AI: Agentic Coding Tools Now Available"
 date: 2026-06-01 23:54:56 +0000
+description: "Discover how AI-powered agentic coding tools in Power Pages accelerate site development, reduce costs, and empower enterprise makers."
 categories:
   - Power Pages
 tags:
@@ -15,6 +16,8 @@ tags:
   - Digital Transformation
 excerpt: "Discover how AI-powered agentic coding tools in Power Pages accelerate site development, reduce costs, and empower enterprise makers."
 author: Kunal Kumar
+ShowToc: true
+TocOpen: true
 ---
 
 ## If You’ve Ever Tried Building a Website with Power Pages, You Know the Struggle

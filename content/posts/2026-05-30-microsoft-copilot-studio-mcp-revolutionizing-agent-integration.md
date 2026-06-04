@@ -15,6 +15,8 @@ tags:
   - Low-Code Development
 excerpt: "Microsoft Copilot Studio’s MCP protocol streamlines agent integrations with pre-built connectors, real-time data access, and enterprise-grade security."
 author: Kunal Kumar
+ShowToc: true
+TocOpen: true
 ---
 
 ## The Problem: Fragmented Integration in Agent Workflows

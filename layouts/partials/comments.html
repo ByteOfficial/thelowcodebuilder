@@ -30,6 +30,17 @@
     width: 100% !important;
     border: none !important;
     min-height: 300px;
+    overflow: hidden !important;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  #cusdis_thread iframe::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+    width: 0;
+    height: 0;
+  }
+  #cusdis_thread {
+    overflow: hidden;
   }
   /* Hide "Comments powered by Cusdis" link */
   #cusdis_thread > a {
@@ -85,6 +96,20 @@
 
   // Also try after a longer delay as a last resort
   setTimeout(tryInit, 2000);
+
+  // Watch for Cusdis to inject iframe and disable its scrollbar
+  var container = document.getElementById("cusdis_thread");
+  if (container) {
+    var scrollObserver = new MutationObserver(function() {
+      var iframe = container.querySelector("iframe");
+      if (iframe) {
+        iframe.setAttribute("scrolling", "no");
+        iframe.style.overflow = "hidden";
+        scrollObserver.disconnect();
+      }
+    });
+    scrollObserver.observe(container, { childList: true, subtree: true });
+  }
 
   // Handle iframe resize messages from Cusdis
   window.addEventListener("message", function(e) {
