@@ -84,6 +84,24 @@ name = "📖 About"
 url = "/about/"
 weight = 7
 
+[[menu.main]]
+identifier = "contact"
+name = "✉️ Contact"
+url = "/contact/"
+weight = 9
+
+[[menu.main]]
+identifier = "privacy"
+name = "🔒 Privacy"
+url = "/privacy/"
+weight = 10
+
+[[menu.main]]
+identifier = "terms"
+name = "⚖️ Terms"
+url = "/terms/"
+weight = 11
+
 [services]
 [services.googleAnalytics]
   ID = "G-2D0R3FWKBN"
