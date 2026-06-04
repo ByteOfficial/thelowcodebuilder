@@ -74,33 +74,39 @@ url = "/categories/copilot-studio/"
 weight = 5
 
 [[menu.main]]
+identifier = "more"
+name = "⋯ More"
+weight = 6
+
+[[menu.main]]
+parent = "more"
+name = "📖 About"
+url = "/about/"
+weight = 1
+
+[[menu.main]]
+parent = "more"
+name = "✉️ Contact"
+url = "/contact/"
+weight = 2
+
+[[menu.main]]
+parent = "more"
+name = "🔒 Privacy"
+url = "/privacy/"
+weight = 3
+
+[[menu.main]]
+parent = "more"
+name = "⚖️ Terms"
+url = "/terms/"
+weight = 4
+
+[[menu.main]]
 identifier = "search"
 name = "🔍 Search"
 url = "/search/"
 weight = 8
-
-[[menu.main]]
-name = "📖 About"
-url = "/about/"
-weight = 7
-
-[[menu.main]]
-identifier = "contact"
-name = "✉️ Contact"
-url = "/contact/"
-weight = 9
-
-[[menu.main]]
-identifier = "privacy"
-name = "🔒 Privacy"
-url = "/privacy/"
-weight = 10
-
-[[menu.main]]
-identifier = "terms"
-name = "⚖️ Terms"
-url = "/terms/"
-weight = 11
 
 [services]
 [services.googleAnalytics]
