@@ -24,6 +24,7 @@ ShowReadingTime = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
 comments = true
+ShowToc = true
 ShowCodeCopyButtons = true
 defaultTheme = "dark"
 hidePoweredBy = true
