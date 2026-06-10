@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "How Microsoft Copilot Studio and MCP Transform AI Integration"
 slug: "how-microsoft-copilot-studio-and-mcp-transform-ai-integration"
 date: 2026-05-29 06:11:34 +0000

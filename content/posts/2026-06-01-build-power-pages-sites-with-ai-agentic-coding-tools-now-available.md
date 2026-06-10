@@ -2,7 +2,6 @@
 cover:
   image: "/images/covers/2026-06-01-build-power-pages-sites-with-ai-agentic-coding-tools-now-available.png"
   alt: "Build Power Pages Sites with AI: Agentic Coding Tools Now Available"
-layout: post
 title: "Build Power Pages Sites with AI: Agentic Coding Tools Now Available"
 slug: "build-power-pages-sites-with-ai-agentic-coding-tools-now-available"
 date: 2026-06-01 23:54:56 +0000

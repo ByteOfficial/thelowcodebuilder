@@ -2,7 +2,6 @@
 cover:
   image: "/images/covers/2026-06-03-enhanced-data-models-and-bootstrap-5-transform-power-pages-portals.png"
   alt: "Enhanced Data Models and Bootstrap 5 Transform Power Pages Portals"
-layout: post
 title: "Enhanced Data Models and Bootstrap 5 Transform Power Pages Portals"
 slug: "enhanced-data-models-and-bootstrap-5-transform-power-pages-portals"
 date: 2026-06-03 12:48:09 +0000
@@ -17,6 +16,8 @@ tags:
   - Low-code Portals
 excerpt: "Discover how Enhanced Data Models and Bootstrap 5 in Power Pages accelerate portal development and improve user engagement."
 author: Kunal Kumar
+ShowToc: true
+TocOpen: true
 ---
 
 ## Faster, Smarter Portals: What's New in Power Pages
