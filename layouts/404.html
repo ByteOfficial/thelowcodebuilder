@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - The Page You're Looking For Exists in a Parallel Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 40px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .message {
+            font-size: 18px;
+            margin: 30px 0;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .humor {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #ffd93d;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .ascii-art {
+            font-size: 12px;
+            margin: 30px 0;
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: #ffd93d;
+            color: #667eea;
+            border-color: #ffd93d;
+        }
+
+        .btn-primary:hover {
+            background: white;
+            border-color: white;
+        }
+
+        .stats {
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .loading-animation {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        
+        <h1>Oops! You've Ventured Into the Void</h1>
+        
+        <div class="message">
+            The page you're looking for has entered a superposition state—it's both here and not here, 
+            until you observe it. Unfortunately, the quantum probability of its existence is currently: <strong>0%</strong>
+        </div>
+
+        <div class="ascii-art">
+            <pre>
+    ╔═══════════════════════════════╗
+    ║  ERROR 404: CONSCIOUSNESS    ║
+    ║  NOT FOUND IN THIS TIMELINE  ║
+    ╚═══════════════════════════════╝
+            </pre>
+        </div>
+
+        <div class="humor">
+            <strong>Technical Explanation:</strong><br>
+            This page either never existed, was deleted by a rogue AI, or has transcended to a higher dimension 
+            of the internet where only enlightened developers can access it. Since you're reading this, it's safe 
+            to assume you're not enlightened enough. Yet.
+        </div>
+
+        <div class="stats">
+            <p>🔍 404 Pages Viewed: ∞</p>
+            <p>⏱️ Time Spent Looking: Probably too long</p>
+            <p>🧠 Mental Damage Inflicted: [████████░░] 85%</p>
+        </div>
+
+        <div class="buttons">
+            <a href="/" class="btn btn-primary">← Return to Reality</a>
+            <a href="javascript:history.back()" class="btn">← Go Back in Time</a>
+        </div>
+
+        <div style="margin-top: 50px; font-size: 12px; opacity: 0.7;">
+            <p>Pro Tip: Try hitting F12 to become a real developer and find what you're looking for.</p>
+            <p style="margin-top: 10px;">P.S. If you're reading this as HTML source code, congratulations—you're officially one of us. 🖤</p>
+        </div>
+    </div>
+</body>
+</html>

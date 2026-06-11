@@ -68,7 +68,14 @@
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url := $currentPage.Permalink | absLangURL }}
-            <li>
+            {{- $hasChildren := .HasChildren -}}
+            <li class="{{ if $hasChildren }}has-children{{ end }}">
+                {{- if and $hasChildren (not .URL) -}}
+                <button type="button" class="menu-parent" aria-expanded="false" aria-haspopup="true" title="{{ .Title | default .Name }}">
+                    <span>{{- .Name -}}</span>
+                    <span class="chevron" aria-hidden="true">▾</span>
+                </button>
+                {{- else -}}
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
                     <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
                         {{- .Pre }}
@@ -84,6 +91,18 @@
                     </svg>
                     {{- end }}
                 </a>
+                {{- end }}
+                {{- if $hasChildren }}
+                <ul class="sub-menu">
+                    {{- range .Children }}
+                    <li>
+                        <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
+                            {{- .Name -}}
+                        </a>
+                    </li>
+                    {{- end }}
+                </ul>
+                {{- end }}
             </li>
             {{- end }}
         </ul>
@@ -124,12 +143,29 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
+        // Toggle nested dropdown groups
+        var parentButtons = document.querySelectorAll('.menu-parent');
+        parentButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                var parentLi = button.closest('li');
+                var isExpanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+                parentLi.classList.toggle('submenu-open', !isExpanded);
+            });
+        });
+
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (siteHeader.classList.contains('menu-open') &&
                 !siteHeader.contains(e.target)) {
                 siteHeader.classList.remove('menu-open');
                 menuToggle.setAttribute('aria-expanded', 'false');
+                var parentButtons = document.querySelectorAll('.menu-parent');
+                parentButtons.forEach(function(button) {
+                    button.setAttribute('aria-expanded', 'false');
+                    button.closest('li').classList.remove('submenu-open');
+                });
             }
         });
     }

@@ -4,6 +4,7 @@ cover:
   alt: "Enhanced Data Models and Bootstrap 5 Transform Power Pages Portals"
 layout: post
 title: "Enhanced Data Models and Bootstrap 5 Transform Power Pages Portals"
+slug: "enhanced-data-models-and-bootstrap-5-transform-power-pages-portals"
 date: 2026-06-03 12:48:09 +0000
 categories:
   - Power Pages

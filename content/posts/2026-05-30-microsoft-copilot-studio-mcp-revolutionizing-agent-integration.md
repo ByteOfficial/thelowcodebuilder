@@ -4,6 +4,7 @@ cover:
   alt: "Microsoft Copilot Studio & MCP: Revolutionizing Agent Integration"
 layout: post
 title: "Microsoft Copilot Studio & MCP: Revolutionizing Agent Integration"
+slug: "microsoft-copilot-studio-mcp-revolutionizing-agent-integration"
 date: 2026-05-30 05:53:55 +0000
 categories:
   - Copilot Studio

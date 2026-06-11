@@ -3,6 +3,7 @@ cover:
   image: "/images/covers/2026-06-04-agent-academy-operative-master-multi-agent-systems-with-copilot-studio.png"
   alt: "Agent Academy: Operative – Master Multi-Agent Systems with Copilot Studio"
 title: "Agent Academy: Operative – Master Multi-Agent Systems with Copilot Studio"
+slug: "agent-academy-operative-master-multi-agent-systems-with-copilot-studio"
 date: 2026-06-04 16:38:49 +0000
 summary: "Learn to build scalable AI agents with Agent Academy: Operative and Copilot Studio's advanced tools for multi-agent systems and AI governance."
 categories:
