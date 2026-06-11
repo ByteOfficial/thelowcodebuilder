@@ -1,8 +1,8 @@
 .main,
 .header,
 .footer {
-  max-width: 1200px !important;
-  width: min(95vw, 1200px) !important;
+  max-width: 80vw !important;
+  width: 80vw !important;
   margin: 0 auto !important;
 }
 
@@ -28,21 +28,21 @@
 }
 
 button.menu-parent {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  gap: 4px;
   appearance: none;
   border: none;
   background: none;
   color: inherit;
   font: inherit;
   cursor: pointer;
-  padding: 14px 0;
+  padding: 0;
 }
 
 button.menu-parent .chevron {
-  margin-left: 0.5em;
+  margin-left: 0.3em;
+  font-size: 0.7em;
   transition: transform 0.2s ease;
 }
 
@@ -53,15 +53,16 @@ button.menu-parent[aria-expanded="true"] .chevron {
 .sub-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 220px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
   background: var(--theme);
-  border: 1px solid rgba(75, 85, 99, 0.12);
-  border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
-  padding: 8px 0;
-  z-index: 20;
+  border: 1px solid rgba(75, 85, 99, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  padding: 6px 0;
+  z-index: 100;
 }
 
 .sub-menu li {
@@ -71,24 +72,39 @@ button.menu-parent[aria-expanded="true"] .chevron {
 .sub-menu a {
   display: block;
   padding: 10px 18px;
+  white-space: nowrap;
+  font-size: 14px;
 }
 
 .sub-menu a:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(99, 102, 241, 0.08);
 }
 
+/* Desktop: show on hover */
 .has-children:hover > .sub-menu,
 .has-children.submenu-open > .sub-menu {
   display: block;
 }
 
-@media screen and (max-width: 1024px) {
+/* Mobile: disable hover, use click only */
+@media screen and (max-width: 768px) {
   .sub-menu {
     position: static;
+    transform: none;
     box-shadow: none;
     border: none;
+    border-radius: 0;
     padding-left: 16px;
+    min-width: unset;
   }
+
+  button.menu-parent {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+
   .has-children:hover > .sub-menu {
     display: none;
   }
