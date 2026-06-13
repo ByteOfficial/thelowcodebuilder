@@ -30,7 +30,10 @@
 button.menu-parent {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  min-height: 44px;
   appearance: none;
   border: none;
   background: none;
@@ -38,6 +41,9 @@ button.menu-parent {
   font: inherit;
   cursor: pointer;
   padding: 0;
+  line-height: 1;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 button.menu-parent .chevron {
@@ -46,8 +52,17 @@ button.menu-parent .chevron {
   transition: transform 0.2s ease;
 }
 
-button.menu-parent[aria-expanded="true"] .chevron {
-  transform: rotate(180deg);
+button.menu-parent .nav-label {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+}
+
+button.menu-parent .nav-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .sub-menu {
@@ -83,7 +98,80 @@ button.menu-parent[aria-expanded="true"] .chevron {
 /* Desktop: show on hover */
 .has-children:hover > .sub-menu,
 .has-children.submenu-open > .sub-menu {
+  display: none;
+}
+
+.menu-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.64);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+}
+
+.menu-popover {
+  position: fixed;
+  inset: 0;
+  z-index: 1101;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 88px 16px 24px;
+}
+
+.menu-popover[data-open="true"] {
+  display: flex;
+}
+
+.menu-popover-panel {
+  width: min(420px, 100%);
+  background: var(--theme);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.24);
+  overflow: hidden;
+}
+
+.menu-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-popover-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.menu-popover-close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-popover-list {
+  list-style: none;
+  padding: 12px;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.menu-popover-list a {
   display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-popover-list a:hover {
+  background: var(--code-bg);
 }
 
 /* Mobile: disable hover, use click only */
@@ -109,7 +197,10 @@ button.menu-parent[aria-expanded="true"] .chevron {
     display: none;
   }
   .has-children.submenu-open > .sub-menu {
-    display: block;
+    display: none;
+  }
+  .menu-popover {
+    padding-top: 72px;
   }
 }
 
@@ -173,6 +264,7 @@ button.menu-parent[aria-expanded="true"] .chevron {
   background-repeat: no-repeat;
   vertical-align: middle;
 }
+
 
 
 /* ==========================================

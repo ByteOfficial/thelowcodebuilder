@@ -76,7 +76,7 @@ weight = 5
 
 [[menu.main]]
 identifier = "more"
-name = "⋯ More"
+name = "More"
 weight = 6
 
 [[menu.main]]

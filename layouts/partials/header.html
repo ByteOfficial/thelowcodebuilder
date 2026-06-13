@@ -71,9 +71,12 @@
             {{- $hasChildren := .HasChildren -}}
             <li class="{{ if $hasChildren }}has-children{{ end }}">
                 {{- if and $hasChildren (not .URL) -}}
-                <button type="button" class="menu-parent" aria-expanded="false" aria-haspopup="true" title="{{ .Title | default .Name }}">
-                    <span>{{- .Name -}}</span>
-                    <span class="chevron" aria-hidden="true">▾</span>
+                <button type="button" class="menu-parent" aria-expanded="false" aria-haspopup="true" title="{{ .Title | default .Name }}" aria-label="{{ .Title | default .Name }}">
+                    <span class="nav-label">{{- .Name -}}</span>
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                    </svg>
                 </button>
                 {{- else -}}
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
@@ -107,10 +110,19 @@
             {{- end }}
         </ul>
     </nav>
+    <div class="menu-popover-backdrop" id="menu-popover-backdrop" hidden></div>
+    <div class="menu-popover" id="menu-popover" role="dialog" aria-label="More links" aria-modal="true">
+        <div class="menu-popover-panel">
+            <div class="menu-popover-header">
+                <h3>More</h3>
+                <button type="button" class="menu-popover-close" id="menu-popover-close" aria-label="Close More menu">×</button>
+            </div>
+            <ul class="menu-popover-list" id="menu-popover-list"></ul>
+        </div>
+    </div>
 </header>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Search link handler
     var searchLink = document.querySelector('#menu a[href*="/search/"]');
     if (searchLink) {
         searchLink.addEventListener('click', function(e) {
@@ -119,21 +131,67 @@ document.addEventListener('DOMContentLoaded', function() {
             if (header) header.classList.remove('menu-open');
             var toggle = document.getElementById('mobile-menu-toggle');
             if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            closeMoreMenu();
             if (window.openGlobalSearch) window.openGlobalSearch();
         });
     }
 
-    // Mobile hamburger toggle
     var menuToggle = document.getElementById('mobile-menu-toggle');
     var siteHeader = document.getElementById('site-header');
+    var moreModal = document.getElementById('menu-popover');
+    var moreBackdrop = document.getElementById('menu-popover-backdrop');
+    var moreList = document.getElementById('menu-popover-list');
+    var moreClose = document.getElementById('menu-popover-close');
+
+    function closeMoreMenu() {
+        if (moreModal) moreModal.removeAttribute('data-open');
+        if (moreBackdrop) moreBackdrop.setAttribute('hidden', 'hidden');
+        document.body.style.overflow = '';
+        document.querySelectorAll('.menu-parent').forEach(function(button) {
+            button.setAttribute('aria-expanded', 'false');
+            button.closest('li').classList.remove('submenu-open');
+        });
+    }
+
+    function openMoreMenu(button) {
+        var parentLi = button.closest('li');
+        var subMenu = parentLi ? parentLi.querySelector('.sub-menu') : null;
+        if (!subMenu || !moreList || !moreModal || !moreBackdrop) return;
+
+        var links = Array.from(subMenu.querySelectorAll('a')).map(function(link) {
+            var title = link.getAttribute('title') || link.textContent.trim();
+            return '<li><a href="' + link.getAttribute('href') + '" title="' + title + '">' + link.innerHTML + '</a></li>';
+        }).join('');
+
+        moreList.innerHTML = links;
+        moreModal.setAttribute('data-open', 'true');
+        moreBackdrop.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        button.setAttribute('aria-expanded', 'true');
+        if (siteHeader) siteHeader.classList.remove('menu-open');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    if (moreBackdrop) {
+        moreBackdrop.addEventListener('click', closeMoreMenu);
+    }
+
+    if (moreClose) {
+        moreClose.addEventListener('click', closeMoreMenu);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMoreMenu();
+    });
+
     if (menuToggle && siteHeader) {
         menuToggle.addEventListener('click', function() {
             siteHeader.classList.toggle('menu-open');
             var isOpen = siteHeader.classList.contains('menu-open');
             menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (!isOpen) closeMoreMenu();
         });
 
-        // Close mobile menu when a nav link is clicked
         var menuLinks = document.querySelectorAll('#menu a');
         menuLinks.forEach(function(link) {
             link.addEventListener('click', function() {
@@ -143,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Dropdown submenu toggle (works on both desktop and mobile)
     var parentButtons = document.querySelectorAll('.menu-parent');
     parentButtons.forEach(function(button) {
         button.addEventListener('click', function(e) {
@@ -152,35 +209,34 @@ document.addEventListener('DOMContentLoaded', function() {
             var parentLi = button.closest('li');
             var isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-            // Close other open submenus first
             parentButtons.forEach(function(other) {
                 if (other !== button) {
                     other.setAttribute('aria-expanded', 'false');
-                    other.closest('li').classList.remove('submenu-open');
+                    var otherLi = other.closest('li');
+                    if (otherLi) otherLi.classList.remove('submenu-open');
                 }
             });
 
-            button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-            parentLi.classList.toggle('submenu-open', !isExpanded);
+            if (isExpanded) {
+                closeMoreMenu();
+                return;
+            }
+
+            openMoreMenu(button);
+            if (parentLi) parentLi.classList.add('submenu-open');
+            button.setAttribute('aria-expanded', 'true');
         });
     });
 
-    // Close dropdowns and mobile menu when clicking outside
     document.addEventListener('click', function(e) {
-        // Close desktop dropdown if clicking outside
-        parentButtons.forEach(function(button) {
-            var parentLi = button.closest('li');
-            if (parentLi && !parentLi.contains(e.target)) {
-                button.setAttribute('aria-expanded', 'false');
-                parentLi.classList.remove('submenu-open');
-            }
-        });
-
-        // Close mobile menu if clicking outside
-        if (siteHeader && siteHeader.classList.contains('menu-open') &&
-            !siteHeader.contains(e.target)) {
+        var target = e.target;
+        if (siteHeader && siteHeader.classList.contains('menu-open') && !siteHeader.contains(target)) {
             siteHeader.classList.remove('menu-open');
             if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        if (moreModal && moreModal.getAttribute('data-open') === 'true' && !moreModal.contains(target) && !target.closest('.menu-parent')) {
+            closeMoreMenu();
         }
     });
 });

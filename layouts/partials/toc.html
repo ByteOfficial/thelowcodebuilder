@@ -1,0 +1,23 @@
+{{- $showToc := .Param "ShowToc" | default site.Params.ShowToc -}}
+{{- $headers := findRE "<h[1-6][^>]*>(.*?)</h[1-6]>" .Content -}}
+{{- if and $showToc (gt (len $headers) 0) -}}
+<div class="toc" data-debug="toc-active">
+  <details {{ if (.Param "TocOpen") }} open{{ end }}>
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">{{- i18n "toc" | default "Table of Contents" }}</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        {{- range $headers -}}
+        {{- $headingText := replaceRE "<h[1-6][^>]*>(.*?)</h[1-6]>" "$1" . | plainify | htmlUnescape -}}
+        {{- $anchor := anchorize $headingText -}}
+        {{- if and $headingText $anchor -}}
+        <li><a href="#{{ $anchor }}">{{ $headingText }}</a></li>
+        {{- end -}}
+        {{- end -}}
+      </ul>
+    </div>
+  </details>
+</div>
+{{- end -}}
