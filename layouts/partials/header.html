@@ -72,10 +72,12 @@
             <li class="{{ if $hasChildren }}has-children{{ end }}">
                 {{- if and $hasChildren (not .URL) -}}
                 <button type="button" class="menu-parent" aria-expanded="false" aria-haspopup="true" title="{{ .Title | default .Name }}" aria-label="{{ .Title | default .Name }}">
+                    <svg class="nav-icon-prefix" width="16" height="16" viewBox="0 0 24 24" fill="#36b5a0" aria-hidden="true">
+                        <circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/>
+                    </svg>
                     <span class="nav-label">{{- .Name -}}</span>
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5v14"></path>
+                        <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
                 {{- else -}}

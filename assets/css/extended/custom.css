@@ -61,10 +61,17 @@ button.menu-parent .nav-label {
 }
 
 button.menu-parent .nav-icon {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   flex-shrink: 0;
+  opacity: 0.6;
+}
+
+button.menu-parent .nav-icon-prefix {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .sub-menu {
