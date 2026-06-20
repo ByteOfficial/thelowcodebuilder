@@ -76,9 +76,6 @@
                         <circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/>
                     </svg>
                     <span class="nav-label">{{- .Name -}}</span>
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
                 </button>
                 {{- else -}}
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
