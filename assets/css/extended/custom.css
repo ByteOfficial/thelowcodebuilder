@@ -21,6 +21,8 @@
 #menu {
   justify-content: space-evenly;
   width: 100%;
+  overflow: visible !important;
+  white-space: normal;
 }
 
 #menu li.has-children {
