@@ -28,7 +28,6 @@ Have questions about Power Platform? Want to collaborate? Found a bug or have fe
 Connect with us on your favorite platform:
 
 - **LinkedIn**: [linkedin.com/in/kunal0](https://linkedin.com/in/kunal0)
-- **Twitter**: [@KunalKumar](https://twitter.com)
 - **GitHub**: [ByteOfficial](https://github.com/ByteOfficial)
 
 ---
@@ -73,110 +72,11 @@ Sponsorships, advertising, or other business opportunities?
 
 ---
 
-## Contact Form
+## Send Us a Message
 
-<form id="contact-form" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
-  <div class="form-group">
-    <label for="name">Your Name *</label>
-    <input type="text" id="name" name="name" required placeholder="John Doe" />
-  </div>
+The quickest way to reach us is via email. Click below to compose your message:
 
-  <div class="form-group">
-    <label for="email">Your Email *</label>
-    <input type="email" id="email" name="email" required placeholder="your@email.com" />
-  </div>
-
-  <div class="form-group">
-    <label for="subject">Subject *</label>
-    <select id="subject" name="subject" required>
-      <option value="">-- Select a subject --</option>
-      <option value="general">General Inquiry</option>
-      <option value="feedback">Feedback</option>
-      <option value="bug">Bug Report</option>
-      <option value="collaboration">Collaboration / Guest Post</option>
-      <option value="topic">Topic Suggestion</option>
-      <option value="business">Business Inquiry</option>
-      <option value="other">Other</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="message">Message *</label>
-    <textarea id="message" name="message" rows="6" required placeholder="Tell us what's on your mind..."></textarea>
-  </div>
-
-  <div class="form-group">
-    <button type="submit" class="btn-submit">Send Message ✈️</button>
-  </div>
-</form>
-
-<style>
-  #contact-form {
-    background: var(--code-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    margin: 2rem 0;
-    border-left: 4px solid var(--primary-color);
-  }
-
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--background);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 1rem;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  .btn-submit {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 0.75rem 2rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-  }
-
-  .btn-submit:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    #contact-form {
-      padding: 1.5rem;
-    }
-  }
-</style>
+<a href="mailto:kunal@thelowcodebuilder.com?subject=Inquiry%20from%20The%20Low%20Code%20Builder" class="btn-submit" style="display:inline-block;text-decoration:none;padding:0.75rem 2rem;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border-radius:4px;font-weight:600;transition:transform 0.2s,box-shadow 0.2s;">✉️ Email Us Directly</a>
 
 ---
 
@@ -232,7 +132,6 @@ Want **weekly tips, tutorials, and Power Platform insights** delivered to your i
 
 - 💼 **LinkedIn**: [linkedin.com/in/kunal0](https://linkedin.com/in/kunal0) – Daily Power Platform insights
 - 🐙 **GitHub**: [ByteOfficial](https://github.com/ByteOfficial) – Code samples & projects
-- 🐦 **Twitter**: [@KunalKumar](https://twitter.com) – Real-time updates
 
 ---
 

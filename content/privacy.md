@@ -143,7 +143,7 @@ Our Site may contain links to external websites. **We are not responsible for th
 ### Third-Party Services We Use
 
 - **Google Analytics** - [Google Privacy Policy](https://policies.google.com/privacy)
-- **Disqus Comments** (if enabled) - [Disqus Privacy Policy](https://help.disqus.com/en/articles/1717155-use-of-cookies)
+- **Cusdis Comments** - [Cusdis Privacy Policy](https://cusdis.com/privacy)
 - **CDN/Hosting Services** - Check your hosting provider's privacy policy
 
 ---
@@ -156,7 +156,7 @@ The Low Code Builder is **not intended for children under 13**. We do not knowin
 
 ## 10. International Data Transfers
 
-Our Site is hosted in the United States. If you access it from outside the US, your information may be transferred to and processed in the US, which may have different data protection regulations than your country.
+Our Site is hosted in India. If you access it from outside India, your information may be transferred to and processed in India, which may have different data protection regulations than your country.
 
 ---
 
@@ -201,7 +201,7 @@ If you're in the EU, you have rights under GDPR, including:
 
 **Have questions about our Privacy Policy?** Contact us:
 
-📧 **Email**: [your-email@thelowcodebuilder.com](mailto:your-email@thelowcodebuilder.com)
+📧 **Email**: [kunal@thelowcodebuilder.com](mailto:kunal@thelowcodebuilder.com)
 
 📍 **Website**: [https://thelowcodebuilder.com](https://thelowcodebuilder.com)
 

@@ -297,7 +297,7 @@ Any legal action or dispute must be brought in the appropriate courts of the Uni
 
 **Questions about our Terms of Service?** Contact us:
 
-📧 **Email**: [your-email@thelowcodebuilder.com](mailto:your-email@thelowcodebuilder.com)
+📧 **Email**: [kunal@thelowcodebuilder.com](mailto:kunal@thelowcodebuilder.com)
 
 🌐 **Website**: [https://thelowcodebuilder.com](https://thelowcodebuilder.com)
 
