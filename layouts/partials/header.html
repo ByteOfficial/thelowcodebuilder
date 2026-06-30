@@ -175,6 +175,16 @@ document.addEventListener('DOMContentLoaded', function() {
         moreBackdrop.addEventListener('click', closeMoreMenu);
     }
 
+    // Close when clicking outside the panel (the popover covers the full screen)
+    if (moreModal) {
+        moreModal.addEventListener('click', function(e) {
+            // Only close if clicking the popover overlay itself, not the panel content
+            if (e.target === moreModal) {
+                closeMoreMenu();
+            }
+        });
+    }
+
     if (moreClose) {
         moreClose.addEventListener('click', closeMoreMenu);
     }
