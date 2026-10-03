@@ -1,10 +1,8 @@
-{{- /* Cusdis Comments — lightweight, no-login-required commenting */ -}}
+{{- /* Isso Comments — self-hosted, no-login-required commenting */ -}}
+{{- /* Replaces deprecated Cusdis (archived July 2026) */ -}}
 
-{{- /* Determine theme for Cusdis */ -}}
-{{- $cusdisTheme := "dark" -}}
-{{- if eq site.Params.defaultTheme "light" -}}
-  {{- $cusdisTheme = "light" -}}
-{{- end -}}
+{{- /* TODO: Replace this URL with your self-hosted Isso instance URL */ -}}
+{{- $issoURL := "https://comments.thelowcodebuilder.com" -}}
 
 <div class="comments-section">
   <h2 class="comments-heading">
@@ -15,144 +13,220 @@
   </h2>
   <p class="comments-subtext">No sign-in required — just leave your name and comment!</p>
 
-  <div id="cusdis_thread"
-    data-host="https://cusdis.com"
-    data-app-id="a8596ce5-38a0-4435-abcd-7244feba04d8"
-    data-page-id="{{ .RelPermalink }}"
-    data-page-url="{{ .Permalink }}"
-    data-page-title="{{ .Title }}"
-    data-theme="{{ $cusdisTheme }}"
-  ></div>
+  {{- /* Isso comment thread container */ -}}
+  <section id="isso-thread" data-title="{{ .Title }}"></section>
 </div>
 
+{{- /* Disable Isso's default CSS — we provide our own dark-theme-compatible styles */ -}}
+<script
+  data-isso="{{ $issoURL }}/"
+  data-isso-css="false"
+  data-isso-lang="en"
+  data-isso-reply-to-self="false"
+  data-isso-require-author="true"
+  data-isso-require-email="false"
+  data-isso-reply-notifications="false"
+  data-isso-max-comments-top="10"
+  data-isso-max-comments-nested="5"
+  data-isso-reveal-on-click="5"
+  data-isso-vote="true"
+  data-isso-vote-levels=""
+  src="{{ $issoURL }}/js/embed.min.js"
+></script>
+
 <style>
-  #cusdis_thread iframe {
+  /* ── Isso Comments — PaperMod Dark Theme Integration ── */
+
+  /* Section wrapper */
+  .comments-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .comments-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .comments-subtext {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Isso form and thread styling ── */
+
+  #isso-thread {
+    font-family: inherit;
+  }
+
+  #isso-thread .isso-postbox,
+  #isso-thread .isso-comment {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  #isso-thread .isso-postbox {
+    margin-bottom: 2rem;
+  }
+
+  /* Input fields */
+  #isso-thread .isso-input-wrapper input,
+  #isso-thread .isso-input-wrapper textarea,
+  #isso-thread input[type="text"],
+  #isso-thread input[type="email"],
+  #isso-thread textarea {
+    background: var(--theme) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 0.6rem 0.8rem !important;
+    font-family: inherit !important;
+    font-size: 0.95rem !important;
     width: 100% !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s ease !important;
+  }
+
+  #isso-thread input[type="text"]:focus,
+  #isso-thread input[type="email"]:focus,
+  #isso-thread textarea:focus {
+    border-color: var(--primary) !important;
+    outline: none !important;
+  }
+
+  #isso-thread textarea {
+    min-height: 120px !important;
+    resize: vertical !important;
+  }
+
+  /* Labels */
+  #isso-thread .isso-postbox label,
+  #isso-thread label {
+    color: var(--secondary) !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  /* Buttons */
+  #isso-thread .isso-postbox .isso-post-action input[type="submit"],
+  #isso-thread input[type="submit"],
+  #isso-thread .isso-comment .isso-comment-footer a {
+    background: var(--primary) !important;
+    color: var(--theme) !important;
     border: none !important;
-    min-height: 300px;
-    overflow: hidden !important;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    border-radius: 6px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s ease !important;
+    text-decoration: none !important;
   }
-  #cusdis_thread iframe::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Opera */
-    width: 0;
-    height: 0;
+
+  #isso-thread input[type="submit"]:hover,
+  #isso-thread .isso-comment .isso-comment-footer a:hover {
+    opacity: 0.8 !important;
   }
-  #cusdis_thread {
-    overflow: hidden;
+
+  /* Comment text */
+  #isso-thread .isso-comment .isso-text,
+  #isso-thread .isso-text {
+    color: var(--primary) !important;
+    line-height: 1.6 !important;
   }
-  /* Hide "Comments powered by Cusdis" link */
-  #cusdis_thread > a {
-    display: none !important;
+
+  #isso-thread .isso-comment .isso-text p {
+    margin: 0.5rem 0 !important;
+  }
+
+  /* Comment header (author, date) */
+  #isso-thread .isso-comment-header,
+  #isso-thread .isso-comment .isso-comment-header {
+    color: var(--secondary) !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  #isso-thread .isso-comment-header .isso-spacer {
+    color: var(--secondary) !important;
+  }
+
+  #isso-thread .isso-comment-header a {
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+  }
+
+  /* Comment footer actions */
+  #isso-thread .isso-comment-footer {
+    margin-top: 0.5rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  #isso-thread .isso-comment-footer a {
+    background: transparent !important;
+    color: var(--secondary) !important;
+    padding: 0.2rem 0.5rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  #isso-thread .isso-comment-footer a:hover {
+    color: var(--primary) !important;
+    opacity: 1 !important;
+  }
+
+  /* Vote buttons */
+  #isso-thread .isso-upvote,
+  #isso-thread .isso-downvote {
+    color: var(--secondary) !important;
+    cursor: pointer !important;
+  }
+
+  #isso-thread .isso-upvote:hover,
+  #isso-thread .isso-downvote:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Nested/reply comments */
+  #isso-thread .isso-follow-up {
+    border-left: 2px solid var(--border) !important;
+    margin-left: 1rem !important;
+    padding-left: 1rem !important;
+  }
+
+  /* "Load more" / pagination */
+  #isso-thread .isso-feedlink,
+  #isso-thread .isso-comment-count {
+    color: var(--secondary) !important;
+    font-size: 0.85rem !important;
+  }
+
+  #isso-thread .isso-feedlink a {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+  }
+
+  /* Preview section */
+  #isso-thread .isso-preview {
+    background: var(--code-bg) !important;
+    border: 1px dashed var(--border) !important;
+    border-radius: 6px !important;
+    padding: 0.8rem !important;
+    margin-top: 0.5rem !important;
+    color: var(--primary) !important;
+  }
+
+  /* Notifications checkbox */
+  #isso-thread .isso-notification-section label {
+    color: var(--secondary) !important;
   }
 </style>
-
-{{- /* Load Cusdis SDK — defer only (no async) ensures DOM is ready */ -}}
-<script defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
-{{- /* Fallback: manually initialize if auto-init didn't fire */ -}}
-<script>
-(function() {
-  // Set correct theme from localStorage before Cusdis renders
-  function getTheme() {
-    var stored = localStorage.getItem("pref-theme");
-    if (stored) return stored;
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-    return "light";
-  }
-
-  // Apply theme to the container immediately
-  var thread = document.getElementById("cusdis_thread");
-  if (thread) {
-    thread.setAttribute("data-theme", getTheme());
-  }
-
-  // Fallback initialization — if Cusdis SDK loaded but didn't auto-init
-  function tryInit() {
-    var target = document.getElementById("cusdis_thread");
-    if (!target) return;
-
-    // If Cusdis already created an iframe, it worked — skip
-    if (target.querySelector("iframe")) return;
-
-    // If CUSDIS global exists, manually trigger initialization
-    if (window.CUSDIS && window.CUSDIS.initial) {
-      window.CUSDIS.initial();
-    } else if (window.renderCusdis) {
-      window.renderCusdis(target);
-    }
-  }
-
-  // Try init on DOMContentLoaded
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(tryInit, 500);
-    });
-  } else {
-    // DOM already loaded
-    setTimeout(tryInit, 500);
-  }
-
-  // Also try after a longer delay as a last resort
-  setTimeout(tryInit, 2000);
-
-  // Watch for Cusdis to inject iframe and disable its scrollbar
-  var container = document.getElementById("cusdis_thread");
-  if (container) {
-    var scrollObserver = new MutationObserver(function() {
-      var iframe = container.querySelector("iframe");
-      if (iframe) {
-        iframe.setAttribute("scrolling", "no");
-        iframe.style.overflow = "hidden";
-        scrollObserver.disconnect();
-      }
-    });
-    scrollObserver.observe(container, { childList: true, subtree: true });
-  }
-
-  // Handle iframe resize messages from Cusdis
-  window.addEventListener("message", function(e) {
-    try {
-      var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-      if (data && data.from === "cusdis" && data.event === "resize") {
-        var iframe = document.querySelector("#cusdis_thread iframe");
-        if (iframe) {
-          iframe.style.height = (parseInt(data.data, 10) + 20) + "px";
-        }
-      }
-    } catch (_) {}
-  });
-
-  // ── Theme sync with PaperMod toggle ──
-  // Hook into PaperMod's localStorage write to catch theme changes
-  var origSetItem = localStorage.setItem;
-  localStorage.setItem = function(key, value) {
-    origSetItem.apply(this, arguments);
-    if (key === "pref-theme") {
-      var t = document.getElementById("cusdis_thread");
-      if (t) t.setAttribute("data-theme", value);
-      if (window.CUSDIS && window.CUSDIS.setTheme) {
-        window.CUSDIS.setTheme(value);
-      }
-    }
-  };
-
-  // Also hook the toggle button as a backup
-  document.addEventListener("DOMContentLoaded", function() {
-    var toggle = document.getElementById("theme-toggle");
-    if (toggle) {
-      toggle.addEventListener("click", function() {
-        setTimeout(function() {
-          var theme = getTheme();
-          var t = document.getElementById("cusdis_thread");
-          if (t) t.setAttribute("data-theme", theme);
-          if (window.CUSDIS && window.CUSDIS.setTheme) {
-            window.CUSDIS.setTheme(theme);
-          }
-        }, 250);
-      });
-    }
-  });
-})();
-</script>

@@ -1,0 +1,3 @@
+# Isso database (contains user comments — don't commit)
+isso/db/*.db
+isso/db/*.db-journal
