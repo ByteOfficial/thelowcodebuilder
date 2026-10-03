@@ -4,7 +4,7 @@ services:
     container_name: isso-comments
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "8280:8080"
     volumes:
       - ./config:/config
       - ./db:/db
