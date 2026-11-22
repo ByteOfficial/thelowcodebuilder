@@ -24,6 +24,7 @@ ShowReadingTime = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
 comments = true
+issoURL = "https://comments.thelowcodebuilder.com"
 ShowToc = true
 ShowCodeCopyButtons = true
 defaultTheme = "dark"
