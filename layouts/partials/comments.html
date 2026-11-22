@@ -335,6 +335,11 @@
   }
 
   #isso-thread .isso-note {
+    display: none !important;
+  }
+
+  #isso-thread .isso-note:not(:empty) {
+    display: inline-block !important;
     background: rgba(234, 179, 8, 0.15);
     color: #eab308;
     padding: 0.2rem 0.6rem;
@@ -376,12 +381,23 @@
     padding: 0.25rem 0.5rem !important;
     border-radius: 4px;
     border: none !important;
-    transition: color 0.15s ease, background 0.15s ease;
+    cursor: pointer !important;
+    transition: color 0.15s ease, background 0.15s ease, transform 0.1s ease;
   }
 
   #isso-thread .isso-comment-footer a:hover {
     color: var(--primary) !important;
     background: var(--theme) !important;
+  }
+
+  #isso-thread .isso-comment-footer a:active {
+    transform: scale(0.92);
+  }
+
+  #isso-thread .isso-votes {
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
   }
 
   #isso-thread .isso-upvote svg,
@@ -390,6 +406,17 @@
     height: 14px;
     stroke: currentColor;
     fill: currentColor;
+    transition: transform 0.15s ease;
+  }
+
+  #isso-thread .isso-upvote:hover svg {
+    color: #22c55e !important;
+    transform: translateY(-1px);
+  }
+
+  #isso-thread .isso-downvote:hover svg {
+    color: #ef4444 !important;
+    transform: translateY(1px);
   }
 
   /* ── Nested replies ── */
