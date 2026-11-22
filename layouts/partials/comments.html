@@ -35,12 +35,12 @@
 ></script>
 
 <style>
-  /* ── Isso Comments — PaperMod Dark Theme Integration ── */
+  /* ── Isso Comments — PaperMod Native Dark/Light Theme Integration ── */
 
   /* Section wrapper */
   .comments-section {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
 
@@ -48,16 +48,16 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
+    font-weight: 700;
     color: var(--primary);
     margin-bottom: 0.25rem;
   }
 
   .comments-subtext {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: var(--secondary);
     margin-bottom: 1.5rem;
-    font-style: italic;
   }
 
   /* ── Isso thread container ── */
@@ -69,23 +69,222 @@
     box-sizing: border-box;
   }
 
-  /* Form & Comment cards */
-  #isso-thread .isso-postbox,
-  #isso-thread .isso-comment {
-    background: var(--code-bg);
+  /* Thread counter heading */
+  #isso-thread .isso-thread-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Postbox (Comment writing card) ── */
+  #isso-thread .isso-postbox {
+    background: var(--entry);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    clear: both;
+  }
+
+  #isso-thread .isso-form-wrapper {
+    display: block;
+  }
+
+  /* Textarea */
+  #isso-thread .isso-textarea,
+  #isso-thread textarea {
+    width: 100% !important;
+    background: var(--theme) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 0.8rem 1rem !important;
+    font-family: inherit !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    min-height: 110px !important;
+    resize: vertical !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    outline: none !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  #isso-thread .isso-textarea:focus,
+  #isso-thread textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.15) !important;
+  }
+
+  /* ── Preview mode handling (fixes empty ghost box & Edit button) ── */
+  #isso-thread .isso-preview {
+    display: none !important;
+    background: var(--theme) !important;
+    border: 1px dashed var(--border) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    color: var(--primary) !important;
+  }
+
+  #isso-thread .isso-postbox.isso-preview-mode .isso-preview {
+    display: block !important;
+  }
+
+  #isso-thread .isso-postbox.isso-preview-mode .isso-textarea {
+    display: none !important;
+  }
+
+  /* Edit button: only show in preview mode */
+  #isso-thread p.isso-post-action:has(input[name="edit"]),
+  #isso-thread input[name="edit"] {
+    display: none !important;
+  }
+
+  #isso-thread .isso-postbox.isso-preview-mode p.isso-post-action:has(input[name="edit"]),
+  #isso-thread .isso-postbox.isso-preview-mode input[name="edit"] {
+    display: inline-flex !important;
+  }
+
+  /* Preview button: hide during preview mode */
+  #isso-thread .isso-postbox.isso-preview-mode p.isso-post-action:has(input[name="preview"]),
+  #isso-thread .isso-postbox.isso-preview-mode input[name="preview"] {
+    display: none !important;
+  }
+
+  /* ── Author / Email row + Buttons (Flexbox horizontal layout) ── */
+  #isso-thread .isso-auth-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 1rem;
+    margin-top: 1rem;
+  }
+
+  #isso-thread .isso-input-wrapper {
+    flex: 1 1 200px;
+    min-width: 140px;
+    margin: 0 !important;
+  }
+
+  #isso-thread .isso-input-wrapper label {
+    display: block;
+    color: var(--secondary) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  #isso-thread .isso-input-wrapper input {
+    width: 100% !important;
+    background: var(--theme) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 0.6rem 0.8rem !important;
+    font-family: inherit !important;
+    font-size: 0.9rem !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    transition: border-color 0.2s ease !important;
+  }
+
+  #isso-thread .isso-input-wrapper input:focus {
+    border-color: var(--primary) !important;
+  }
+
+  /* Hide spammy website field to keep form clean */
+  #isso-thread .isso-input-wrapper:has(input[name="website"]) {
+    display: none !important;
+  }
+
+  /* Action buttons inline container */
+  #isso-thread p.isso-post-action {
+    display: inline-flex !important;
+    margin: 0 !important;
+    align-items: center;
+  }
+
+  #isso-thread p.isso-post-action:first-of-type {
+    margin-left: auto !important;
+  }
+
+  /* Submit button */
+  #isso-thread input[type="submit"] {
+    background: var(--primary) !important;
+    color: var(--theme) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.6rem 1.4rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    height: 38px;
+    transition: opacity 0.2s ease, transform 0.1s ease !important;
+  }
+
+  #isso-thread input[type="submit"]:hover {
+    opacity: 0.88 !important;
+  }
+
+  #isso-thread input[type="submit"]:active {
+    transform: scale(0.98);
+  }
+
+  /* Preview and Edit buttons */
+  #isso-thread input[name="preview"],
+  #isso-thread input[name="edit"] {
+    background: transparent !important;
+    color: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 0.6rem 1.1rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    height: 38px;
+    transition: all 0.2s ease !important;
+  }
+
+  #isso-thread input[name="preview"]:hover,
+  #isso-thread input[name="edit"]:hover {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    background: var(--theme) !important;
+  }
+
+  /* Notification checkbox */
+  #isso-thread .isso-notification-section {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--secondary);
+  }
+
+  #isso-thread .isso-notification-section label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+  }
+
+  #isso-thread .isso-notification-section input[type="checkbox"] {
+    accent-color: var(--primary);
+  }
+
+  /* ── Comment Cards (Rendered comments) ── */
+  #isso-thread .isso-comment {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
     position: relative;
     clear: both;
   }
 
-  #isso-thread .isso-postbox {
-    margin-bottom: 2rem;
-  }
-
-  /* ── Avatar (Identicon) styling - Fix huge SVG issue ── */
+  /* ── Avatar (Identicon) styling ── */
   #isso-thread .isso-avatar {
     display: block;
     float: left;
@@ -109,96 +308,14 @@
     overflow: hidden;
   }
 
-  /* ── Form inputs ── */
-  #isso-thread .isso-form-wrapper {
-    display: block;
-  }
-
-  #isso-thread .isso-input-wrapper {
-    display: inline-block;
-    margin-right: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-
-  #isso-thread .isso-input-wrapper input,
-  #isso-thread .isso-textarea,
-  #isso-thread textarea {
-    background: var(--theme) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 6px !important;
-    padding: 0.6rem 0.8rem !important;
-    font-family: inherit !important;
-    font-size: 0.95rem !important;
-    transition: border-color 0.2s ease !important;
-  }
-
-  #isso-thread .isso-textarea,
-  #isso-thread textarea {
-    width: 100% !important;
-    min-height: 100px !important;
-    resize: vertical !important;
-    margin-bottom: 0.8rem !important;
-    box-sizing: border-box !important;
-  }
-
-  #isso-thread input[type="text"]:focus,
-  #isso-thread input[type="email"]:focus,
-  #isso-thread textarea:focus {
-    border-color: var(--primary) !important;
-    outline: none !important;
-  }
-
-  #isso-thread .isso-input-wrapper label {
-    color: var(--secondary) !important;
-    font-size: 0.82rem !important;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-
-  /* ── Post action & Submit button ── */
-  #isso-thread .isso-post-action {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  #isso-thread .isso-post-action input[type="submit"] {
-    background: var(--primary) !important;
-    color: var(--theme) !important;
-    border: none !important;
-    border-radius: 6px !important;
-    padding: 0.55rem 1.4rem !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    transition: opacity 0.2s ease !important;
-  }
-
-  #isso-thread .isso-post-action input[type="submit"]:hover {
-    opacity: 0.85 !important;
-  }
-
-  #isso-thread .isso-post-action input[name="preview"],
-  #isso-thread .isso-post-action input[name="edit"] {
-    background: transparent !important;
-    color: var(--secondary) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 6px !important;
-    padding: 0.55rem 1rem !important;
-    font-size: 0.9rem !important;
-    cursor: pointer !important;
-  }
-
   /* ── Comment header (author, date, badge) ── */
   #isso-thread .isso-comment-header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    font-size: 0.85rem;
-    margin-bottom: 0.4rem;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
     color: var(--secondary);
   }
 
@@ -220,9 +337,9 @@
   #isso-thread .isso-note {
     background: rgba(234, 179, 8, 0.15);
     color: #eab308;
-    padding: 0.15rem 0.5rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 500;
     margin-left: auto;
   }
@@ -235,16 +352,16 @@
   }
 
   #isso-thread .isso-text p {
-    margin: 0.3rem 0 !important;
+    margin: 0.35rem 0 !important;
   }
 
-  /* ── Comment footer actions (reply, upvote, etc.) ── */
+  /* ── Comment footer actions (reply, upvote, edit, delete) ── */
   #isso-thread .isso-comment-footer {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    margin-top: 0.6rem;
-    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
     color: var(--secondary);
   }
 
@@ -252,11 +369,11 @@
     color: var(--secondary) !important;
     background: transparent !important;
     text-decoration: none !important;
-    font-size: 0.8rem !important;
+    font-size: 0.82rem !important;
     display: inline-flex;
     align-items: center;
-    gap: 0.2rem;
-    padding: 0.2rem 0.4rem !important;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem !important;
     border-radius: 4px;
     border: none !important;
     transition: color 0.15s ease, background 0.15s ease;
@@ -282,25 +399,32 @@
     border-left: 2px solid var(--border) !important;
   }
 
-  /* ── Preview box ── */
-  #isso-thread .isso-preview {
-    background: var(--code-bg) !important;
-    border: 1px dashed var(--border) !important;
-    border-radius: 6px !important;
-    padding: 0.8rem !important;
-    margin-top: 0.5rem !important;
-    color: var(--primary) !important;
-  }
-
-  @media screen and (max-width: 600px) {
+  /* ── Responsive adjustments ── */
+  @media screen and (max-width: 640px) {
     #isso-thread .isso-input-wrapper {
-      display: block;
+      flex: 1 1 100%;
       width: 100%;
-      margin-right: 0;
     }
-    #isso-thread .isso-input-wrapper input {
+
+    #isso-thread p.isso-post-action:first-of-type {
+      margin-left: 0 !important;
+    }
+
+    #isso-thread .isso-auth-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #isso-thread p.isso-post-action {
+      width: 100%;
+    }
+
+    #isso-thread input[type="submit"],
+    #isso-thread input[name="preview"],
+    #isso-thread input[name="edit"] {
       width: 100% !important;
     }
+
     #isso-thread .isso-follow-up {
       margin-left: 0.5rem !important;
       padding-left: 0.5rem !important;
