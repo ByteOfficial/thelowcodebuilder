@@ -18,6 +18,32 @@ Edit `config/isso.cfg`:
 - **`[admin] password`** — change to a strong password
 - **`[hash] salt`** — change to a random string
 - **`[general] host`** — ensure your domain is listed
+- **`[smtp]`** — email notification settings (Gmail App Password, Outlook, etc.)
+
+### 3. Email Notifications & One-Click Moderation
+
+When someone leaves a comment, Isso can send an email to you with direct **Activate** (Approve) and **Delete** links.
+
+In `config/isso.cfg`:
+```ini
+[general]
+notify = smtp, stdout
+
+[moderation]
+enabled = true
+
+[smtp]
+username = your-email@gmail.com
+password = your-app-password
+host = smtp.gmail.com
+port = 587
+security = starttls
+to = your-notification-email@gmail.com
+from = "The Low Code Builder Comments" <your-email@gmail.com>
+timeout = 10
+```
+
+> **Tip for Gmail:** Go to your Google Account > Security > 2-Step Verification > **App passwords** to create a 16-character password specifically for Isso.
 
 ### 3. Start the container
 
